@@ -1,0 +1,225 @@
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Common packages
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{xeCJK}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usepackage[linesnumbered,ruled,vlined,longend]{algorithm2e}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{pifont}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\usepackage{tikz}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Color
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{AUXLblue}{RGB}{ 51,145,202}
+\definecolor{AUXLlightblue}{RGB}{144,196,231} 
+
+\definecolor{AUXLorange}{RGB}{246,174, 60}
+\definecolor{AUXLlightorange}{RGB}{254,216,177}
+
+\definecolor{AUXLpurple}{RGB}{135,119,175}
+\definecolor{AUXLlightpurple}{RGB}{226,178,255}
+
+\definecolor{AUXLyellow}{RGB}{255,221,  0}
+\definecolor{AUXLlightyellow}{RGB}{255,238,127}
+
+\definecolor{AUXLgreen}{RGB}{120,180,88}            
+\definecolor{AUXLlightgreen}{RGB}{202,240,142} 
+
+\definecolor{AUXLgray}{RGB}{105,106,107}
+\definecolor{AUXLlightgray}{RGB}{208,209,211}  
+
+\definecolor{AUXLred}{RGB}{219, 72, 72}
+\definecolor{AUXLlightred}{RGB}{244,195,195}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cleveref and hyperref
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{hyperref}
+% \hypersetup{colorlinks,breaklinks,urlcolor=blue!50!black,linkcolor=blue}
+\usepackage[colorlinks,
+            linkcolor=AUXLblue, 
+            anchorcolor=AUXLblue, 
+            citecolor=red,        
+            ]{hyperref}
+\usepackage{url}
+\usepackage[capitalize, nameinlink, noabbrev]{cleveref}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Changes package and comment package
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Avoid the conflict between changes and comment
+\usepackage{xpatch}
+\let\ChangesComment\comment
+\let\ChangesEndComment\endcomment
+\usepackage{changes}
+\let\comment\ChangesComment
+\let\endcomment\ChangesEndComment
+\usepackage{comment}
+% Make the changes package work with \cite
+\let\oldcite\cite
+\renewcommand{\cite}[1]{\mbox{\oldcite{#1}}}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math macros
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+\providecommand{\deq}{\mathrel{:=}}
+\newcommand{\Tr}{\mathop{\operatorname{Tr}}}
+\newcommand{\Var}{\mathop{\operatorname{Var}}}
+\providecommand\Ex{\mathop{\operatorname{\mathbb E}}}
+\providecommand\IP[1]{\langle #1 \rangle}
+\providecommand\bigIP[1]{\bigl\langle #1 \bigr\rangle}
+\providecommand\BigIP[1]{\Bigl\langle #1 \Bigr\rangle}
+\providecommand\biggIP[1]{\biggl\langle #1 \biggr\rangle}
+\providecommand\BiggIP[1]{\Biggl\langle #1 \Biggr\rangle}
+\providecommand{\getsr}{\stackrel{\smash{\$}}\gets}
+\providecommand{\pf}{\mathop{}\!p} % probability funciton, p.m.f. or p.d.f.
+\providecommand{\dKL}{\mathop{d_{\rm KL}}}
+\providecommand{\proj}{\operatorname{proj}}
+
+\makeatletter
+\def\metadef#1#2{%
+% #1 csname
+% #2 content
+  \def\metadef@iter##1{\ifx##1;\else \expandafter\newcommand\csname#1\endcsname{#2}\expandafter\metadef@iter\fi}%
+  \expandafter\metadef@iter%
+}
+\makeatother
+
+% Vector
+\metadef{vec#1}{\mathbf #1}abcdefghijklmnopqrstuvwxyz;
+\newcommand\veczero{\mathbf 0}
+
+% Hat
+\metadef{hat#1}{\widehat{#1}}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz;
+
+% Bar
+\metadef{bar#1}{\overline{#1}}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz;
+
+% Tilde
+\metadef{tilde#1}{\widetilde{#1}}ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz;
+
+% Tensor
+\metadef{ten#1}{\mathbf #1}ABCDEFGHIJKLMNOPQRSTUVWXYZ;
+
+% frak -> \mathfrak
+\metadef{frak#1}{\mathfrak #1}ABCDEFGHIJKLMNOPQRSTUVWXYZ;
+
+% c -> \mathcal
+\metadef{c#1}{\mathcal #1}ABCDEFGHIJKLMNOPQRSTUVWXYZ;
+
+% s -> \mathsf
+\metadef{s#1}{\mathsf #1}ABCDEFGHIJKLMNOPQRSTUVWXYZ;
+
+% double -> \mathbb
+\metadef{#1#1}{\mathbb #1}ZRCFGHNQ;
+
+\makeatletter
+\@ifpackageloaded{mathtools}{}{
+  \def\clap#1{\hbox to 0pt{\hss#1\hss}}
+  \def\mathllap{\mathpalette\mathllapinternal}
+  \def\mathrlap{\mathpalette\mathrlapinternal}
+  \def\mathclap{\mathpalette\mathclapinternal}
+  \def\mathllapinternal#1#2{\llap{$\mathsurround=0pt#1{#2}$}}
+  \def\mathrlapinternal#1#2{\rlap{$\mathsurround=0pt#1{#2}$}}
+  \def\mathclapinternal#1#2{\clap{$\mathsurround=0pt#1{#2}$}}
+}
+\makeatother
+
+% operation
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Paired delimiter
+\DeclarePairedDelimiter{\parens}{\lparen}{\rparen}
+\DeclarePairedDelimiter{\brackets}{\lbrack}{\rbrack}
+\DeclarePairedDelimiter{\braces}{\lbrace}{\rbrace}
+\DeclarePairedDelimiter{\angles}{\langle}{\rangle}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+
+% more beautiful symbol
+\let\oldepsilon\epsilon
+\let\epsilon\varepsilon
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+\let\l\ell
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theoritial CS macros
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\negl}{\operatorname{negl}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\bit}{\{0,1\}}
+\providecommand{\lang}[1]{\textnormal{\textsf{#1}}}
+\providecommand{\comp}[1]{\textnormal{\textbf{#1}}}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cryptography macros
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand{\Gen}{\textnormal{\textsf{Gen}}}
+\providecommand{\Enc}{\textnormal{\textsf{Enc}}}
+\providecommand{\Dec}{\textnormal{\textsf{Dec}}}
+\providecommand{\Sign}{\textnormal{\textsf{Sign}}}
+\providecommand{\Eval}{\textnormal{\textsf{Eval}}}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Algorithmic game theory macros
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\opt}{\textnormal{\textsf{OPT}}}
+\newcommand{\alg}{\textnormal{\textsf{ALG}}}
+\newcommand{\lw}{\textnormal{\textsf{LW}}}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theroem env
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+
+\@ifundefined{theorem}{\newtheorem{theorem}{Theorem}}{}
+\@ifundefined{lemma}{\newtheorem{lemma}{Lemma}}{}
+\@ifundefined{acknowledgement}{\newtheorem{acknowledgement}[theorem]{Acknowledgement}}{}
+\@ifundefined{axiom}{\newtheorem{axiom}{Axiom}}{}
+\@ifundefined{case}{\newtheorem{case}{Case}}{}
+\@ifundefined{claim}{\newtheorem{claim}{Claim}}{}
+\@ifundefined{conclusion}{\newtheorem{conclusion}{Conclusion}}{}
+\@ifundefined{result}{\newtheorem{result}{Result}}{}
+\@ifundefined{condition}{\newtheorem{condition}{Condition}}{}
+\@ifundefined{conjecture}{\newtheorem{conjecture}{Conjecture}}{}
+\@ifundefined{corollary}{\newtheorem{corollary}{Corollary}}{}
+\@ifundefined{criterion}{\newtheorem{criterion}{Criterion}}{}
+\@ifundefined{definition}{\newtheorem{definition}{Definition}}{}
+\@ifundefined{observation}{\newtheorem{observation}{Observation}}{}
+\@ifundefined{fact}{\newtheorem{fact}{Fact}}{}
+\@ifundefined{example}{\newtheorem{example}{Example}}{}
+\@ifundefined{exercise}{\newtheorem{exercise}{Exercise}}{}
+\@ifundefined{notation}{\newtheorem{notation}{Notation}}{}
+\@ifundefined{problem}{\newtheorem{problem}{Problem}}{}
+\@ifundefined{proposition}{\newtheorem{proposition}{Proposition}}{}
+\@ifundefined{assumption}{\newtheorem{assumption}{Assumption}}{}
+\@ifundefined{property}{\newtheorem{property}{Property}}{}
+\@ifundefined{remark}{\newtheorem{remark}{Remark}}{}
+\@ifundefined{solution}{\newtheorem{solution}{Solution}}{}
+\@ifundefined{summary}{\newtheorem{summary}{Summary}}{}
+
+\makeatother
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Font and icon
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
