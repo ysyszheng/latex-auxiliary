@@ -16,6 +16,8 @@
 \usepackage{booktabs}
 \usepackage{mathtools}
 \usepackage{tikz}
+\usepackage{bm}
+\usepackage[normalem]{ulem} % normalem for not changing \emph
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Color
@@ -263,11 +265,10 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Comments macros
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\xxxColor}{blue}
-\newcommand{\xxx}[1]{{\color{\xxxColor} [xxx: #1] }}
-\definechangesauthor[name={xxx}, color=blue]{xxx}
-\newcommand{\xxxAdd}[1]{\added[id=xxx]{#1}}
-\newcommand{\xxxRem}[1]{\deleted[id=xxx]{#1}}
+\newcommand{\xxColor}{blue}
+\newcommand{\xx}[1]{{\color{\xxColor} [xx: #1] }}
+\newcommand{\xxAdd}[1]{{\color{\xxColor}{#1}}}
+\newcommand{\xxRem}[1]{{\color{\xxColor}{\sout{#1}}}}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Special macros
