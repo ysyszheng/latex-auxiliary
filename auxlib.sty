@@ -70,6 +70,10 @@
 % Make the changes package work with \cite
 \let\oldcite\cite
 \renewcommand{\cite}[1]{\mbox{\oldcite{#1}}}
+\let\oldcitep\citep
+\renewcommand{\citep}[1]{\mbox{\oldcitep{#1}}}
+\let\oldcitet\citet
+\renewcommand{\citet}[1]{\mbox{\oldcitet{#1}}}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Math macros
