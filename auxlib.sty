@@ -3,7 +3,7 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \usepackage{xeCJK}
 \usepackage{amsfonts,amsmath,amssymb,amsthm}
-\usepackage[linesnumbered,ruled,vlined,longend]{algorithm2e}
+\usepackage[linesnumbered,ruled,vlined,longend,procnumbered]{algorithm2e}
 \usepackage{color}
 \usepackage{xcolor}
 \usepackage{siunitx}
@@ -262,6 +262,81 @@
 \@ifundefined{summary}{\newtheorem{summary}{Summary}}{}
 
 \makeatother
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New algorithm env
+% https://tex.stackexchange.com/a/212030/26355
+% https://tex.stackexchange.com/questions/645810/
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Procedure
+\newcounter{procedure}
+\makeatletter
+\AtBeginEnvironment{procedure}{\let\c@algocf\c@procedure\crefalias{algocf}{procedure}}
+\makeatother
+\crefname{procedure}{Procedure}{Procedures}
+\Crefname{procedure}{Procedure}{Procedures}
+
+% Protocol
+\newcounter{protocol}
+\makeatletter
+\AtBeginEnvironment{protocol}{\let\c@algocf\c@procedure\crefalias{algocf}{protocol}}
+\makeatother
+\renewcommand{\theprotocol}{\arabic{protocol}}
+\newenvironment{protocol}[1][htbp]
+  {
+    \refstepcounter{protocol}
+    \renewcommand{\thealgocf}{\theprotocol}
+    \renewcommand{\algorithmcfname}{Protocol}
+    \begin{algorithm}[#1]
+    \SetAlgoCaptionSeparator{.}
+    \addtocounter{algocf}{-1}
+  }
+  {\end{algorithm}}
+\crefname{protocol}{Protocol}{Protocols}
+\Crefname{protocol}{Protocol}{Protocols}
+
+% Mechanism
+\newcounter{mechanism}
+\makeatletter
+\AtBeginEnvironment{mechanism}{\let\c@algocf\c@mechanism\crefalias{algocf}{mechanism}}
+\makeatother
+\renewcommand{\themechanism}{\arabic{mechanism}}
+\newenvironment{mechanism}[1][htbp]
+  {
+    \refstepcounter{mechanism}
+    \renewcommand{\thealgocf}{\themechanism}
+    \renewcommand{\algorithmcfname}{Mechanism}
+    \begin{algorithm}[#1]
+    \SetAlgoCaptionSeparator{.}
+    \addtocounter{algocf}{-1}
+  }
+  {\end{algorithm}}
+\crefname{mechanism}{Mechanism}{Mechanisms}
+\Crefname{mechanism}{Mechanism}{Mechanisms}
+
+\iffalse
+% Below are solutions for using package algorithm and algpseudocode
+\newcounter{protocol}
+\makeatletter
+\newenvironment{protocol}[1][htb]{%
+  \let\c@algorithm\c@protocol
+  \renewcommand{\ALG@name}{Protocol}
+  \begin{algorithm}[#1]%
+  }{\end{algorithm}
+}
+\makeatother
+
+\newcounter{mechanism}
+\makeatletter
+\newenvironment{mechanism}[1][htb]{%
+  \let\c@algorithm\c@mechanism
+  \renewcommand{\ALG@name}{mechanism}
+  \begin{algorithm}[#1]%
+  }{\end{algorithm}
+}
+\makeatother
+\fi
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Font and icon
