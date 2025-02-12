@@ -358,10 +358,11 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Comments macros
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\xxColor}{blue}
-\newcommand{\xx}[1]{{\color{\xxColor} [xx: #1] }}
-\newcommand{\xxAdd}[1]{{\color{\xxColor}{#1}}}
-\newcommand{\xxRem}[1]{{\color{\xxColor}{\sout{#1}}}}
+\newcommand{\userColor}{blue}
+\newcommand{\user}[1]{\xspace\textnormal{\color{\userColor} [\textbf{User:} #1] \xspace}}
+\newcommand{\userAdd}[1]{{\color{\userColor}{#1}}}
+\newcommand{\userRem}[1]{{\color{\userColor}{\sout{#1}}}}
+\newcommand{\userHL}[1]{{\color{\userColor}{\underline{#1}}}}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Special macros
